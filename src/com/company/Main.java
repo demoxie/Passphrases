@@ -1,40 +1,48 @@
 package com.company;
 
-import java.util.Scanner;
-
 public class Main {
 
-    public static void main(String[] args) {
-        // write your code here
-        Scanner sc = new Scanner(System.in);
-        String str = sc.nextLine();
-        System.out.println(passPhrase(str));
-    }
-
-    public static String passPhrase(String str) {
+    public static String playPass(String s, int n) {
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
+        char c;
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
             if (ch >= 65 && ch <= 90) {
-                ch++;
-                if(i%2 != 0){
-                    result.append(Character.toLowerCase(ch));
-                }else {
-                    result.append(ch);
-
+                if(ch+n > 90){
+                    //c = (char) (ch - 24);
+                    int lastLetter = 64;
+                    for(int j=0;j<n;j++){
+                        if(ch == 90){
+                            lastLetter++;
+                        }else{
+                            ch++;
+                        }
+                    }
+                    c = (char) lastLetter;
+                }else{
+                    c = (char) (ch + n);
                 }
-
-                //result = new StringBuilder(str.replace(str.charAt(i), ch));
-
-            } else {
-                if (Character.isDigit(ch)) {
-                    result.append(9 - Integer.parseInt(String.valueOf(ch)));
+                if (i % 2 != 0) {
+                    result.append(Character.toLowerCase(c));
                 } else {
-                    result.append(ch);
+                    result.append(Character.toUpperCase(c));
                 }
+            } else{
+            if (Character.isDigit(ch)) {
+                result.append(57 - ch);
+            } else {
+                result.append(ch);
             }
         }
+    }
         return result.reverse().toString();
 
+}
+
+    public static void main(String[] args) {
+        System.out.println(playPass("MY GRANMA CAME FROM NY ON THE 23RD OF APRIL 2015", 2));
+        //4897 NkTrC Hq fT67 GjV Pq aP OqTh gOcE CoPcTi aO
+        //!!!vPz fWpM J
     }
+
 }
